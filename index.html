@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CampusFlow</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f4f5f7; margin: 0; padding: 20px; }
+  h1 { text-align: center; color: #333; }
+  .board { display: flex; gap: 16px; justify-content: center; }
+  .column {
+    background: #ebecf0;
+    border-radius: 8px;
+    width: 250px;
+    padding: 10px;
+    min-height: 400px;
+  }
+  .column h2 {
+    font-size: 16px;
+    margin-top: 0;
+    text-align: center;
+    color: #444;
+  }
+  .card {
+    background: white;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  }
+  .card strong { display: block; margin-bottom: 4px; }
+  .add-card-form {
+    margin-top: 10px;
+  }
+  .add-card-form input, .add-card-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 6px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .add-card-form button {
+    width: 100%;
+    padding: 6px;
+    background: #0079bf;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>CampusFlow</h1>
+
+<div class="board">
+  <div class="column" id="todo">
+    <h2>To Do</h2>
+    <div class="cards"></div>
+    <div class="add-card-form">
+      <input type="text" placeholder="Card title" class="title-input">
+      <textarea placeholder="Description (optional)" class="desc-input"></textarea>
+      <button onclick="addCard('todo')">Add Card</button>
+    </div>
+  </div>
+
+  <div class="column" id="inprogress">
+    <h2>In Progress</h2>
+    <div class="cards"></div>
+  </div>
+
+  <div class="column" id="done">
+    <h2>Done</h2>
+    <div class="cards"></div>
+  </div>
+</div>
+
+<script>
+  function addCard(columnId) {
+    const column = document.getElementById(columnId);
+    const titleInput = column.querySelector('.title-input');
+    const descInput = column.querySelector('.desc-input');
+
+    const title = titleInput.value.trim();
+    if (!title) return;
+
+    const desc = descInput.value.trim();
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `<strong>${title}</strong>${desc ? `<span>${desc}</span>` : ''}`;
+
+    column.querySelector('.cards').appendChild(card);
+
+    titleInput.value = '';
+    descInput.value = '';
+  }
+</script>
+
+</body>
+</html>
