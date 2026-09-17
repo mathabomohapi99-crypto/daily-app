@@ -75,7 +75,6 @@
     <div class="cards"></div>
   </div>
 </div>
-
 <script>
   function addCard(columnId) {
     const column = document.getElementById(columnId);
@@ -89,7 +88,16 @@
 
     const card = document.createElement('div');
     card.className = 'card';
-    card.innerHTML = `<strong>${title}</strong>${desc ? `<span>${desc}</span>` : ''}`;
+
+    const titleEl = document.createElement('strong');
+    titleEl.textContent = title;
+    card.appendChild(titleEl);
+
+    if (desc) {
+      const descEl = document.createElement('span');
+      descEl.textContent = desc;
+      card.appendChild(descEl);
+    }
 
     column.querySelector('.cards').appendChild(card);
 
