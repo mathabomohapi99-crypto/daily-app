@@ -1,0 +1,79 @@
+function signup(email, password) {
+  if (!email.includes('@')) return { error: 'invalid' };
+  if (password.length < 8) return { error: 'weak' };
+
+  // 10 rounds balances hashing security against server response time;
+  // higher rounds are more secure but slow down every signup request
+  const hash = bcrypt.hashSync(password, 10);
+
+  const existing = db.users.find(u => u.email === email);
+  if (existing) return { error: 'exists' };
+
+  // verified starts false — user must confirm via emailed token
+  // before they're allowed to log in (enforced elsewhere in login handler)
+  const user = db.users.insert({ email, hash, verified: false });
+  sendEmail(user.email, 'confirm-token-' + user.id);
+  return { id: user.id };
+}
+
+## Setup
+1. Install dependencies: `npm install bcrypt`
+2. Ensure `db` and `sendEmail` are available in scope (a database client and an email service).
+
+## Usage
+Call `signup(email, password)` with a user's email and plaintext password.
+- Returns `{ id: <userId> }` on success.
+- Returns `{ error: 'invalid' }` if the email has no "@".
+- Returns `{ error: 'weak' }` if the password is under 8 characters.
+- Returns `{ error: 'exists' }` if the email is already registered.
+
+On success, a confirmation email is sent and the account is created unverified until the user clicks the confirmation link.
+
+## POST /api/signup
+
+**Description:** Registers a new user account and sends an email verification link.
+
+**Auth required:** No (public endpoint)
+
+**Request body:**
+```json
+{
+  "email": "user@example.com",
+  "password": "plaintextpassword"
+}
+```
+
+**Response — 200 OK (success):**
+```json
+{ "id": "12345" }
+```
+
+**Response — 400 Bad Request (invalid email):**
+```json
+{ "error": "invalid" }
+```
+
+**Response — 400 Bad Request (weak password):**
+```json
+{ "error": "weak" }
+```
+
+**Response — 409 Conflict (email already registered):**
+```json
+{ "error": "exists" }
+```
+
+# ADR: Hash passwords with bcrypt at 10 rounds
+
+**Status:** Accepted
+
+**Context:**
+User passwords must be stored securely rather than in plaintext. bcrypt is a widely-used, battle-tested hashing algorithm with a configurable cost factor (rounds) that controls how slow/expensive hashing is, trading off security against server performance.
+
+**Decision:**
+Use bcrypt with a cost factor of 10 rounds to hash passwords before storing them.
+
+**Consequences:**
+10 rounds is a reasonable industry-standard default that resists brute-force attacks without adding noticeable latency to signup requests. If server hardware improves significantly or security requirements increase, the round count can be raised later — existing hashes remain valid since bcrypt encodes the cost factor in the hash itself.
+
+docs/scratch-assignment-3.2.md
