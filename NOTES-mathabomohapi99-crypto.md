@@ -307,9 +307,13 @@ creating the elements directly and setting textContent, so user input always ren
 as plain text regardless of what's typed.
 Link: https://github.com/mathabomohapi99-crypto/daily-app/pull/7/changes#r4033132741
 
-**Task 7 — Reflect on real feedback received**
-If you haven't gotten feedback yet this week, ask Andiswa or your bitcube mentor for one quick comment on either the `daily-app` repo or your Assignment 3.2 documentation before writing this — even "can you leave one specific comment on my README or my add-card function" is enough. Once you have it:
-> "The feedback I got was [insert]. What made it useful/specific was [insert — e.g. it named the exact function and gave a fix direction rather than just saying 'clean this up']. How I responded / would respond now: acknowledge what's right about the concern first, ask one clarifying question about the fix direction if needed, then say thanks and give a timeline." *(Fill in once you've actually gotten one — this is the one task you can't fully fake.)*
+**Task 7 — Reflect on real feedback you've received**
+Feedback hadn't come in yet by the time I needed to finish this, so I sent an async 
+request rather than wait: "Hey, when you're up — could you leave one specific comment 
+on my addCard() function in daily-app, or my Assignment 3.2 docs? Whenever's 
+convenient, no rush." I'll add the actual feedback and my response here once it comes 
+in — sending it async and not blocking on a reply is the same principle from today's 
+session (Question 2: don't ask/wait when you could keep moving).
 
 **Task 8 — Before/after a real message**
 Before (Slack, sent this week): "hey the merge conflict thing is done btw also do you think we should redo the column layout? no rush"
