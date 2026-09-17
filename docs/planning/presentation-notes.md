@@ -34,8 +34,11 @@ the backlog became sprints. Each Sprint 1 item has acceptance criteria."
 Asana and code can drift if not updated together."
 
 ## Slide 9 — Demo (25s)
-"Show the live board, add a card to To Do, then show the matching Sprint 1 story
-in Asana."
+"Show the live board, add a card to To Do. Then jump into Asana — show a
+couple of Product Backlog items, and a Sprint 1 story with its acceptance
+criteria, and point out how it maps to what's on the board. Then show the
+repo — backlog docs live in docs/planning alongside the epics and agile
+redesign docs."
 
 ## Slide 10 — Summary (15s)
 "Small, focused tracker with room to grow. Start with README, epics.md,
